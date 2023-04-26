@@ -53,6 +53,14 @@ function handler(event) {
                         }
                     }
                     break;
+                case 'default_image':
+                    if (request.querystring[operation]['value']) {
+                        var default_image = request.querystring[operation]['value'];
+                        if (default_image) {
+                            normalizedOperations['default_image'] = default_image.toString();
+                        }
+                    }
+                    break;
                 default: break;
             }
         });
@@ -64,7 +72,8 @@ function handler(event) {
             if (normalizedOperations.quality) normalizedOperationsArray.push('quality='+normalizedOperations.quality);
             if (normalizedOperations.width) normalizedOperationsArray.push('width='+normalizedOperations.width);
             if (normalizedOperations.height) normalizedOperationsArray.push('height='+normalizedOperations.height);
-            request.uri = originalImagePath + '/' + normalizedOperationsArray.join(',');     
+            if (normalizedOperations.default_image) normalizedOperationsArray.push('default_image='+normalizedOperations.default_image);
+            request.uri = originalImagePath + '/' + normalizedOperationsArray.join(',');
         } else {
             // If no valid operation is found, flag the request with /original path suffix
             request.uri = originalImagePath + '/original';     

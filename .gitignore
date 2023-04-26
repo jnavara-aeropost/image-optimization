@@ -1,0 +1,6 @@
+/cdk.out
+/bin
+/node_modules
+/lib
+.idea
+functions/image-processing/node_modules
